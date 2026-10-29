@@ -1,0 +1,13 @@
+# Development: file-based H2 under backend/.data (never inside the served frontend folder).
+spring:
+  datasource:
+    url: jdbc:h2:file:${CRX_DB_PATH:./.data/crx-dev};MODE=PostgreSQL;DATABASE_TO_LOWER=TRUE;DEFAULT_NULL_ORDERING=HIGH
+    username: sa
+    password: ""
+
+crx:
+  auth:
+    # Plain http://localhost cannot carry Secure cookies.
+    secure-cookies: false
+    # Development-only: /api/auth/forgot returns the reset token so the flow can be tested without email.
+    expose-reset-token: true

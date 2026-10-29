@@ -1,0 +1,14 @@
+# Production: PostgreSQL. Every credential comes from the environment (see backend/.env.example).
+spring:
+  datasource:
+    url: ${CRX_DB_URL}
+    username: ${CRX_DB_USER}
+    password: ${CRX_DB_PASSWORD}
+
+server:
+  forward-headers-strategy: ${CRX_FORWARD_HEADERS:none}
+
+crx:
+  auth:
+    secure-cookies: true
+    expose-reset-token: false

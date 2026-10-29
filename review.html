@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Code Review · Code ReveiwX</title>
+<meta name="theme-color" content="#08090a">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/review.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="app">
+  <div class="main">
+    <header class="topbar"></header>
+    <main class="page" id="main">
+      <div class="page-head">
+        <div>
+          <h1>AI Code Review</h1>
+          <p>Paste or upload code, run a review, and read through each suggested improvement.</p>
+        </div>
+      </div>
+
+      <div class="notice" role="note">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg>
+        <span><strong>Demonstration review.</strong> Results come from rule-based checks that run in your browser (risky-call patterns and loop-nesting analysis), not from an AI model. Findings are <em>sample findings</em> to verify, not confirmed defects. Your code never leaves this page.</span>
+      </div>
+
+      <div class="rv-grid">
+        <!-- ========== INPUT ========== -->
+        <section class="card rv-input" aria-labelledby="inputTitle">
+          <h2 class="sr-only" id="inputTitle">Code input</h2>
+          <div class="rv-toolbar">
+            <label class="sr-only" for="lang">Programming language</label>
+            <select class="select select-sm" id="lang" style="width:auto"></select>
+            <label class="sr-only" for="sample">Load a sample</label>
+            <select class="select select-sm" id="sample" style="width:auto">
+              <option value="">Load sample code…</option>
+            </select>
+            <span class="spacer"></span>
+            <button class="btn btn-sm btn-ghost" type="button" id="pasteBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><rect x="8" y="3" width="8" height="4" rx="1"/><path d="M8 5H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/></svg>Paste</button>
+            <button class="btn btn-sm btn-ghost" type="button" id="uploadBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M12 16V4M7 9l5-5 5 5"/><path d="M4 16v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></svg>Upload file</button>
+            <input type="file" id="fileInput" accept=".c,.h,.cpp,.cc,.cxx,.hpp,.java,.py,.js,.mjs,.cjs,.go,.txt" hidden>
+            <button class="btn btn-sm btn-ghost" type="button" id="clearBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg>Clear</button>
+          </div>
+          <div class="rv-editor-wrap">
+            <div class="editor" id="editorBox">
+              <div class="editor-gutter" aria-hidden="true">1</div>
+              <label class="sr-only" for="code">Source code</label>
+              <textarea id="code" spellcheck="false" autocomplete="off" autocapitalize="off" placeholder="Paste your code here, drop a source file, or load a sample from the menu above.&#10;&#10;Tab inserts spaces. Press Esc, then Tab, to move focus out of the editor."></textarea>
+              <div class="drop-hint">Drop a source file to load it</div>
+            </div>
+            <div class="notice lang-warn" id="langWarn" role="status"></div>
+            <p class="field-error" id="inputErr" role="alert"></p>
+          </div>
+          <div class="rv-foot">
+            <div class="rv-meta"><span><span class="num" id="lineCount">0</span> lines</span><span><span class="num" id="charCount">0</span> chars</span><span id="fileName"></span></div>
+            <button class="btn btn-accent" type="button" id="reviewBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="m9 8-4 4 4 4"/><path d="m15 8 4 4-4 4"/></svg>Review code</button>
+          </div>
+        </section>
+
+        <!-- ========== SCORE ========== -->
+        <aside class="card rv-score" aria-labelledby="scoreTitle" aria-live="polite">
+          <div class="card-head"><h2 class="card-title" id="scoreTitle">Review score</h2><span class="badge" id="scoreBadge">Not run</span></div>
+          <div id="scoreBody"></div>
+        </aside>
+      </div>
+
+      <div class="rv-results" id="results" hidden></div>
+    </main>
+  </div>
+</div>
+<script src="data/problems.js"></script>
+<script src="js/main.js"></script>
+<script src="js/api-client.js"></script>
+<script src="js/charts.js"></script>
+<script src="js/review-engine.js"></script>
+<script src="js/review.js"></script>
+</body>
+</html>

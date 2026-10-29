@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Code ReveiwX — Practice smarter. Review your code.</title>
+<meta name="description" content="Code ReveiwX: placement-focused DSA practice and a code review workspace that explains every improvement. Frontend demo.">
+<meta name="theme-color" content="#08090a">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/auth.css">
+</head>
+<body class="landing">
+<a class="skip-link" href="#signin">Skip to sign in</a>
+
+<header class="lp-nav" id="top">
+  <div class="lp-wrap lp-nav-inner">
+    <span id="brandSlot"></span>
+    <nav class="lp-links" aria-label="Site">
+      <a href="#product">Product</a>
+      <a href="#modules">Modules</a>
+      <a href="#how">How it works</a>
+      <a href="#honesty">What's simulated</a>
+    </nav>
+    <div class="lp-nav-cta">
+      <a class="btn btn-sm btn-ghost hide-xs" href="#signin">Sign in</a>
+      <button class="btn btn-sm btn-primary" type="button" data-demo>Explore demo</button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+  <!-- ============ HERO (video stage) ============ -->
+  <section class="hero" aria-labelledby="heroTitle">
+    <div class="hero-stage" aria-hidden="true">
+      <canvas class="hero-fallback" id="heroCanvas"></canvas>
+      <video class="hero-video" id="heroVideo" autoplay loop muted playsinline preload="auto" poster="assets/hero-poster.jpg">
+        <source src="assets/hero-code-loop.mp4" type="video/mp4">
+      </video>
+      <div class="hero-scrim"></div>
+    </div>
+
+    <div class="lp-wrap hero-grid">
+      <div class="hero-copy">
+        <span class="badge badge-demo stagger" style="--i:0"><span class="dot"></span>For students, graduates and working engineers</span>
+        <h1 id="heroTitle" class="stagger" style="--i:1">Practice smarter. Review your code. <span class="h-dim">Understand every improvement.</span></h1>
+        <p class="hero-sub stagger" style="--i:2">Build better code and become interview ready. Work through a 442-problem DSA placement sheet, then get a structured code review with before-and-after explanations of every suggested change.</p>
+        <div class="hero-ctas stagger" style="--i:3">
+          <button class="btn btn-lg btn-accent" type="button" data-demo data-next="review.html">Open the review workspace <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+          <button class="btn btn-lg" type="button" data-demo data-next="placement.html">Browse practice problems</button>
+        </div>
+        <dl class="hero-facts stagger" style="--i:4">
+          <div><dt>Problems in the sheet</dt><dd class="num">442</dd></div>
+          <div><dt>DSA topics</dt><dd class="num">18</dd></div>
+          <div><dt>Languages</dt><dd class="num">6</dd></div>
+        </dl>
+        <button class="video-toggle" type="button" id="videoToggle" aria-pressed="false">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>
+          <span>Pause background</span>
+        </button>
+      </div>
+
+      <!-- ============ SIGN IN ============ -->
+      <div class="auth-card stagger" style="--i:2" id="signin">
+        <div class="auth-head">
+          <h2>Sign in</h2>
+          <p>Welcome back. Pick up where you left off.</p>
+        </div>
+        <div class="notice" role="note">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg>
+          <span><strong>Frontend-only demo.</strong> There is no account server. Credentials are checked for format only, never sent or stored, and signing in opens a local demo session.</span>
+        </div>
+        <form id="loginForm" novalidate>
+          <div class="field">
+            <label class="label" for="email">Email</label>
+            <input class="input" id="email" name="email" type="email" autocomplete="email" placeholder="you@college.edu" aria-describedby="emailErr">
+            <p class="field-error" id="emailErr" role="alert"></p>
+          </div>
+          <div class="field">
+            <div class="label-row"><label class="label" for="password">Password</label><button class="link-btn" type="button" id="forgotBtn">Forgot password?</button></div>
+            <div class="pw-wrap">
+              <input class="input" id="password" name="password" type="password" autocomplete="current-password" placeholder="At least 8 characters" aria-describedby="pwErr">
+              <button class="pw-toggle" type="button" id="pwToggle" aria-label="Show password" aria-pressed="false">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg>
+              </button>
+            </div>
+            <p class="field-error" id="pwErr" role="alert"></p>
+          </div>
+          <label class="check"><input type="checkbox" id="remember"> Remember my email on this device</label>
+          <button class="btn btn-primary btn-lg auth-submit" type="submit">Sign in</button>
+        </form>
+        <div class="auth-or"><span>or</span></div>
+        <button class="btn btn-lg auth-demo" type="button" data-demo>Explore in demo mode, no credentials</button>
+        <p class="auth-foot">New to Code ReveiwX? <button class="link-btn" type="button" id="createBtn">Create an account</button></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PRODUCT PREVIEW ============ -->
+  <section class="lp-section" id="product" aria-labelledby="productTitle">
+    <div class="lp-wrap">
+      <div class="section-head">
+        <span class="eyebrow">Product preview</span>
+        <h2 id="productTitle">Two workspaces, one goal: code you can explain.</h2>
+        <p>Review is the flagship. Practice feeds it. Switch between the two below. The preview content is sample data.</p>
+      </div>
+      <div class="preview">
+        <div class="seg preview-tabs" role="tablist" aria-label="Preview">
+          <button role="tab" id="tab-review" aria-controls="panel-review" aria-selected="true" type="button">AI Code Review</button>
+          <button role="tab" id="tab-practice" aria-controls="panel-practice" aria-selected="false" type="button" tabindex="-1">Placement Practice</button>
+        </div>
+
+        <div class="preview-frame" role="tabpanel" id="panel-review" aria-labelledby="tab-review">
+          <div class="pf-bar"><span class="pf-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="faint">review.html: sample result</span><span class="badge badge-demo">Sample</span></div>
+          <div class="pf-review">
+            <div class="pf-score">
+              <svg viewBox="0 0 120 120" class="pf-gauge" aria-hidden="true"><circle cx="60" cy="60" r="50" class="g-track"/><circle cx="60" cy="60" r="50" class="g-fill" style="--p:.84"/></svg>
+              <div class="pf-score-num"><span class="num">84</span><small>/100</small></div>
+              <p class="faint">Overall quality (sample)</p>
+              <dl class="pf-kv">
+                <div><dt>Estimated efficiency</dt><dd class="num">78%</dd></div>
+                <div><dt>Time</dt><dd class="num">O(n)</dd></div>
+                <div><dt>Space</dt><dd class="num">O(n)</dd></div>
+              </dl>
+            </div>
+            <div class="pf-diff">
+              <div class="pf-issue"><span class="sev sev-high">High</span><strong>Nested loop scans the array twice</strong><span class="badge">Sample finding</span></div>
+              <div class="pf-cols">
+                <div><p class="eyebrow">Original</p><pre class="code"><code>for i in range(n):
+    for j in range(i+1, n):
+        if a[i] + a[j] == t:
+            return [i, j]</code></pre></div>
+                <div><p class="eyebrow">Suggested</p><pre class="code"><code>seen = {}
+for i, x in enumerate(a):
+    if t - x in seen:
+        return [seen[t - x], i]
+    seen[x] = i</code></pre></div>
+              </div>
+              <p class="faint pf-note">O(n²) → O(n) time, O(1) → O(n) space. Trades memory for one pass.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="preview-frame" role="tabpanel" id="panel-practice" aria-labelledby="tab-practice" hidden>
+          <div class="pf-bar"><span class="pf-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="faint">placement.html</span><span class="badge">From your sheet</span></div>
+          <div class="pf-practice" id="pfTopics"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ MODULES ============ -->
+  <section class="lp-section" id="modules" aria-labelledby="modTitle">
+    <div class="lp-wrap">
+      <div class="section-head">
+        <span class="eyebrow">Modules</span>
+        <h2 id="modTitle">Separate tools, kept separate on purpose.</h2>
+      </div>
+      <div class="mod-grid">
+        <article class="mod mod-main">
+          <span class="badge badge-demo"><span class="dot"></span>Flagship</span>
+          <h3>AI Code Review</h3>
+          <p>Paste or upload C, C++, Java, Python, JavaScript or Go. Get a score out of 100, a separate efficiency estimate, seven review categories with severity levels, and side-by-side suggestions that explain what changes, why, and at what cost.</p>
+          <ul class="ticks">
+            <li>Score breakdown derived from the findings on screen</li>
+            <li>Before and after complexity, when it can be supported</li>
+            <li>Trade-offs listed for every suggestion</li>
+          </ul>
+          <button class="btn btn-accent" type="button" data-demo data-next="review.html">Start a review</button>
+        </article>
+        <article class="mod">
+          <span class="badge">Practice</span>
+          <h3>Placement Code Practice</h3>
+          <p>All 442 problems from the Curious Freaks coding sheet, in the sheet's order and grouped by topic and pattern, each with its practice link. Filter, search, solve in the editor, and track progress honestly.</p>
+          <ul class="ticks">
+            <li>18 topics, from basic math to tries</li>
+            <li>Six-language editor with sample tests</li>
+            <li>Progress you record yourself, never invented</li>
+          </ul>
+          <button class="btn" type="button" data-demo data-next="placement.html">Open practice</button>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ HOW IT WORKS ============ -->
+  <section class="lp-section" id="how" aria-labelledby="howTitle">
+    <div class="lp-wrap">
+      <div class="section-head">
+        <span class="eyebrow">How it works</span>
+        <h2 id="howTitle">Write it. Review it. Understand it.</h2>
+      </div>
+      <ol class="steps">
+        <li><span class="num step-n">01</span><h3>Practice a pattern</h3><p>Pick a topic from the sheet, open a problem, write your solution in your language.</p></li>
+        <li><span class="num step-n">02</span><h3>Send it to review</h3><p>One click moves your code into the review workspace with the language already set.</p></li>
+        <li><span class="num step-n">03</span><h3>Read every change</h3><p>Each finding explains the issue, why it matters, the improved code, and its limits.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ============ HONESTY ============ -->
+  <section class="lp-section" id="honesty" aria-labelledby="honTitle">
+    <div class="lp-wrap honesty">
+      <div>
+        <span class="eyebrow">Transparency</span>
+        <h2 id="honTitle">What's real in this build, and what's simulated.</h2>
+        <p class="muted">This is a frontend-only build with no backend, database or AI model. Here's exactly what that means.</p>
+      </div>
+      <dl class="hon-list">
+        <div><dt>Code review</dt><dd>Rule-based checks run in your browser: pattern matching for risky calls, loop-nesting analysis for complexity. Results are labelled <em>demonstration</em> and are not AI analysis.</dd></div>
+        <div><dt>Running code</dt><dd>Nothing is compiled or executed. Sample test cases show expected output only. Real execution needs a separate sandboxed service.</dd></div>
+        <div><dt>Accounts</dt><dd>Sign-in opens a local demo session. No credentials are verified, sent, or stored.</dd></div>
+        <div><dt>Progress</dt><dd>Starts at zero and only reflects what you do here. It's saved in this browser's storage.</dd></div>
+      </dl>
+    </div>
+  </section>
+</main>
+
+<footer class="lp-footer">
+  <div class="lp-wrap lp-foot-inner">
+    <span id="brandSlot2"></span>
+    <p class="faint">Practice problems sourced from the Curious Freaks Coding Sheet. Frontend demonstration. No real AI analysis takes place.</p>
+    <a href="#top">Back to top</a>
+  </div>
+</footer>
+
+<script src="data/problems.js"></script>
+<script src="js/main.js"></script>
+<script src="js/api-client.js"></script>
+<script src="js/auth.js"></script>
+</body>
+</html>

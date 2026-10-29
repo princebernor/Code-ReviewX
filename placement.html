@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Placement Code Practice · Code ReveiwX</title>
+<meta name="theme-color" content="#08090a">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/placement.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="app">
+  <div class="main">
+    <header class="topbar"></header>
+    <main class="page" id="main">
+      <div class="page-head">
+        <div>
+          <h1>Placement Code Practice</h1>
+          <p>All 442 problems from the Curious Freaks coding sheet, in the sheet's order, grouped by topic and pattern.</p>
+        </div>
+      </div>
+
+      <div class="pl-top">
+        <section aria-labelledby="topicsT" style="display:grid;gap:12px;min-width:0">
+          <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap">
+            <h2 class="card-title" id="topicsT">DSA topic explorer</h2>
+            <span class="faint" style="font-size:12.5px">Select a topic to filter the list below</span>
+          </div>
+          <div class="topics" id="topics"></div>
+        </section>
+
+        <aside class="pl-side" aria-label="Your practice summary">
+          <section class="card" aria-labelledby="sumT">
+            <div class="card-head"><h2 class="card-title" id="sumT">Your progress</h2><a href="progress.html" class="faint" style="font-size:12.5px">Details</a></div>
+            <dl class="side-stats" id="sideStats"></dl>
+            <div style="padding:14px 18px;display:grid;gap:10px" id="nextBox"></div>
+          </section>
+          <section class="card" aria-labelledby="colT">
+            <div class="card-head"><h2 class="card-title" id="colT">Collections</h2></div>
+            <div class="collections" id="collections"></div>
+            <p class="faint" style="padding:10px 18px 14px;font-size:12px">Collections are built from the sheet's own notes and patterns. No company tags are implied.</p>
+          </section>
+        </aside>
+      </div>
+
+      <section class="card" aria-labelledby="listT">
+        <h2 class="sr-only" id="listT">Problem list</h2>
+        <div class="filters" role="search">
+          <div class="search">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+            <label class="sr-only" for="q">Search problems by name</label>
+            <input class="input" id="q" type="search" placeholder="Search 442 problems…" autocomplete="off">
+          </div>
+          <label class="sr-only" for="fTopic">Topic</label>
+          <select class="select select-sm" id="fTopic" style="width:auto"><option value="">All topics</option></select>
+          <label class="sr-only" for="fDiff">Difficulty</label>
+          <select class="select select-sm" id="fDiff" style="width:auto"><option value="">Any difficulty</option><option>Easy</option><option>Medium</option><option>Hard</option></select>
+          <label class="sr-only" for="fStatus">Status</label>
+          <select class="select select-sm" id="fStatus" style="width:auto"><option value="">Any status</option><option value="unsolved">Unsolved</option><option value="attempted">Attempted</option><option value="solved">Solved</option></select>
+          <button class="btn btn-sm btn-ghost" type="button" id="resetF">Reset</button>
+        </div>
+        <div class="result-bar"><span id="resultCount" aria-live="polite"></span><span>Difficulty labels are estimates by this app. The sheet doesn't assign them.</span></div>
+        <div class="table-wrap">
+          <table class="table" id="ptable">
+            <thead><tr><th scope="col">#</th><th scope="col">Problem</th><th scope="col" class="hide-md">Topic</th><th scope="col">Difficulty</th><th scope="col">Status</th><th scope="col"><span class="sr-only">Actions</span></th></tr></thead>
+            <tbody id="pbody"></tbody>
+          </table>
+        </div>
+        <div class="more" id="more" hidden><button class="btn btn-sm" type="button" id="moreBtn">Show more</button></div>
+      </section>
+    </main>
+  </div>
+</div>
+<script src="data/problems.js"></script>
+<script src="data/problem-details.js"></script>
+<script src="js/main.js"></script>
+<script src="js/api-client.js"></script>
+<script src="js/placement.js"></script>
+</body>
+</html>

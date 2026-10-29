@@ -1,0 +1,17 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:crxtest;MODE=PostgreSQL;DATABASE_TO_LOWER=TRUE;DEFAULT_NULL_ORDERING=HIGH;DB_CLOSE_DELAY=-1
+    username: sa
+    password: ""
+
+crx:
+  # Tests never contact the real judge; RunApiTest swaps in a fake client.
+  judge:
+    url: http://127.0.0.1:9
+  auth:
+    jwt-secret: test-only-secret-0123456789abcdef0123456789abcdef
+    secure-cookies: false
+    expose-reset-token: true
+    bcrypt-strength: 4
+    # No grace window, so replaying a rotated refresh token is always detected in tests.
+    refresh-reuse-grace: 0s

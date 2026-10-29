@@ -1,0 +1,89 @@
+spring:
+  application:
+    name: codereviewx
+  profiles:
+    default: dev
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: none
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+  servlet:
+    multipart:
+      enabled: false
+  mvc:
+    problemdetails:
+      enabled: false
+
+server:
+  port: ${PORT:8080}
+  error:
+    include-stacktrace: never
+    include-message: never
+  # Reject oversized bodies before they reach a controller (512 KB of code + JSON overhead).
+  tomcat:
+    max-swallow-size: 2MB
+    max-http-form-post-size: 1MB
+
+crx:
+  frontend:
+    enabled: true
+    dir: ${CRX_FRONTEND_DIR:..}
+  auth:
+    jwt-secret: ${CRX_JWT_SECRET:}
+    issuer: codereviewx
+    access-ttl: 15m
+    refresh-ttl: 7d
+    reset-ttl: 30m
+    refresh-reuse-grace: 5s
+    secure-cookies: true
+    same-site: Strict
+    bcrypt-strength: 12
+    expose-reset-token: false
+    reset-link-base: ${CRX_RESET_LINK_BASE:http://localhost:8080/index.html}
+  cors:
+    allowed-origins: ${CRX_ALLOWED_ORIGINS:}
+  review:
+    max-lines: 2000
+    max-bytes: 524288
+    timeout-ms: 5000
+    max-nesting: 200
+    worker-threads: 4
+    queue-capacity: 32
+  history:
+    store-source: true
+    max-per-user: 500
+  rate-limit:
+    login-per-minute: 10
+    login-per-email-per-minute: 5
+    register-per-minute: 5
+    forgot-per-minute: 3
+    reset-per-minute: 5
+    review-per-minute: 30
+  llm:
+    enabled: false
+    provider: none
+  # Code execution for Placement Practice (Run / Submit). Code is sent to this Judge0 instance.
+  judge:
+    enabled: ${CRX_JUDGE_ENABLED:true}
+    url: ${CRX_JUDGE_URL:https://ce.judge0.com}
+    api-key: ${CRX_JUDGE_API_KEY:}
+    # X-Auth-Token for a self-hosted Judge0 with AUTHN_TOKEN; X-RapidAPI-Key for RapidAPI
+    api-key-header: ${CRX_JUDGE_API_KEY_HEADER:X-Auth-Token}
+    rapid-api-host: ${CRX_JUDGE_RAPIDAPI_HOST:}
+    timeout: 30s
+    cpu-time-limit: 5
+    wall-time-limit: 10
+    memory-limit-kb: 256000
+    max-code-bytes: 102400
+    max-cases: 20
+    runs-per-minute: 10
+    language-ids:
+      c: 103            # C (GCC 14.1.0)
+      cpp: 105          # C++ (GCC 14.1.0)
+      java: 91          # Java (JDK 17.0.6)
+      python: 113       # Python (3.14.0)
+      javascript: 102   # JavaScript (Node.js 22.08.0)
+      go: 107           # Go (1.23.5)

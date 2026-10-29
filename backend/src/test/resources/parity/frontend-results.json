@@ -1,0 +1,1003 @@
+[
+  {
+    "id": "py-pairs",
+    "lang": "python",
+    "code": "def find_pairs(nums, target, result=[]):\n    # TODO: handle empty input\n    for i in range(len(nums)):\n        for j in range(i + 1, len(nums)):\n            if nums[i] + nums[j] == target:\n                result.append((nums[i], nums[j]))\n    try:\n        best = max(result, key=lambda p: p[0])\n    except:\n        best = None\n    if best == None:\n        print(\"no pairs found\")\n    return result\n",
+    "overall": 81,
+    "weighted": 87,
+    "efficiency": 58,
+    "time": "O(n²)",
+    "space": "O(n)",
+    "counts": {
+      "critical": 0,
+      "high": 2,
+      "medium": 1,
+      "low": 1,
+      "info": 2
+    },
+    "categories": {
+      "correctness": {
+        "score": 69,
+        "n": 2
+      },
+      "security": {
+        "score": 100,
+        "n": 0
+      },
+      "time": {
+        "score": 68,
+        "n": 1
+      },
+      "quality": {
+        "score": 96,
+        "n": 2
+      },
+      "readability": {
+        "score": 100,
+        "n": 0
+      },
+      "practices": {
+        "score": 95,
+        "n": 1
+      },
+      "space": {
+        "score": 92,
+        "n": 0
+      }
+    },
+    "findings": [
+      {
+        "id": "mutable-default",
+        "cat": "correctness",
+        "sev": "high",
+        "line": 1,
+        "noPenalty": false
+      },
+      {
+        "id": "nested-loop",
+        "cat": "time",
+        "sev": "high",
+        "line": 3,
+        "noPenalty": true
+      },
+      {
+        "id": "bare-except",
+        "cat": "correctness",
+        "sev": "medium",
+        "line": 9,
+        "noPenalty": false
+      },
+      {
+        "id": "eq-none",
+        "cat": "practices",
+        "sev": "low",
+        "line": 11,
+        "noPenalty": false
+      },
+      {
+        "id": "todo",
+        "cat": "quality",
+        "sev": "info",
+        "line": 2,
+        "noPenalty": false
+      },
+      {
+        "id": "debug-print",
+        "cat": "quality",
+        "sev": "info",
+        "line": 12,
+        "noPenalty": false
+      }
+    ]
+  },
+  {
+    "id": "js-dupes",
+    "lang": "javascript",
+    "code": "function findDuplicates(items) {\n  var dupes = [];\n  for (var i = 0; i < items.length; i++) {\n    for (var j = i + 1; j < items.length; j++) {\n      if (items[i] == items[j] && dupes.indexOf(items[i]) == -1) {\n        dupes.push(items[i]);\n      }\n    }\n  }\n  document.getElementById(\"out\").innerHTML = \"Duplicates: \" + dupes.join(\", \");\n  console.log(dupes);\n  return dupes;\n}\n",
+    "overall": 81,
+    "weighted": 84,
+    "efficiency": 35,
+    "time": "O(n³)",
+    "space": "O(n)",
+    "counts": {
+      "critical": 0,
+      "high": 1,
+      "medium": 3,
+      "low": 2,
+      "info": 1
+    },
+    "categories": {
+      "correctness": {
+        "score": 89,
+        "n": 1
+      },
+      "security": {
+        "score": 89,
+        "n": 1
+      },
+      "time": {
+        "score": 35,
+        "n": 2
+      },
+      "quality": {
+        "score": 98,
+        "n": 1
+      },
+      "readability": {
+        "score": 100,
+        "n": 0
+      },
+      "practices": {
+        "score": 90,
+        "n": 2
+      },
+      "space": {
+        "score": 92,
+        "n": 0
+      }
+    },
+    "findings": [
+      {
+        "id": "nested-loop",
+        "cat": "time",
+        "sev": "high",
+        "line": 3,
+        "noPenalty": true
+      },
+      {
+        "id": "loose-eq",
+        "cat": "correctness",
+        "sev": "medium",
+        "line": 5,
+        "noPenalty": false
+      },
+      {
+        "id": "linear-in-loop",
+        "cat": "time",
+        "sev": "medium",
+        "line": 5,
+        "noPenalty": false
+      },
+      {
+        "id": "innerhtml",
+        "cat": "security",
+        "sev": "medium",
+        "line": 10,
+        "noPenalty": false
+      },
+      {
+        "id": "js-var",
+        "cat": "practices",
+        "sev": "low",
+        "line": 2,
+        "noPenalty": false
+      },
+      {
+        "id": "js-var",
+        "cat": "practices",
+        "sev": "low",
+        "line": 3,
+        "noPenalty": false
+      },
+      {
+        "id": "debug-print",
+        "cat": "quality",
+        "sev": "info",
+        "line": 11,
+        "noPenalty": false
+      }
+    ]
+  },
+  {
+    "id": "java-search",
+    "lang": "java",
+    "code": "public class Search {\n    public static int binarySearch(int[] arr, int target) {\n        int low = 0, high = arr.length;\n        while (low <= high) {\n            int mid = (low + high) / 2;\n            if (arr[mid] == target) return mid;\n            else if (arr[mid] < target) low = mid + 1;\n            else high = mid - 1;\n        }\n        return -1;\n    }\n\n    public static boolean isAdmin(String role) {\n        return role == \"admin\";\n    }\n}\n",
+    "overall": 83,
+    "weighted": 89,
+    "efficiency": 95,
+    "time": "O(log n)",
+    "space": "O(1)",
+    "counts": {
+      "critical": 0,
+      "high": 2,
+      "medium": 1,
+      "low": 0,
+      "info": 0
+    },
+    "categories": {
+      "correctness": {
+        "score": 49,
+        "n": 3
+      },
+      "security": {
+        "score": 100,
+        "n": 0
+      },
+      "time": {
+        "score": 99,
+        "n": 0
+      },
+      "quality": {
+        "score": 100,
+        "n": 0
+      },
+      "readability": {
+        "score": 100,
+        "n": 0
+      },
+      "practices": {
+        "score": 100,
+        "n": 0
+      },
+      "space": {
+        "score": 100,
+        "n": 0
+      }
+    },
+    "findings": [
+      {
+        "id": "upper-bound",
+        "cat": "correctness",
+        "sev": "high",
+        "line": 3,
+        "noPenalty": false
+      },
+      {
+        "id": "java-str-eq",
+        "cat": "correctness",
+        "sev": "high",
+        "line": 14,
+        "noPenalty": false
+      },
+      {
+        "id": "mid-overflow",
+        "cat": "correctness",
+        "sev": "medium",
+        "line": 5,
+        "noPenalty": false
+      }
+    ]
+  },
+  {
+    "id": "c-greet",
+    "lang": "c",
+    "code": "#include <stdio.h>\n#include <string.h>\n\nint main() {\n    char name[16];\n    char greeting[32];\n    printf(\"Enter name: \");\n    gets(name);\n    strcpy(greeting, \"Hello, \");\n    strcat(greeting, name);\n    for (int i = 0; i < strlen(greeting); i++) {\n        if (greeting[i] == ' ') greeting[i] = '_';\n    }\n    printf(\"%s\\n\", greeting);\n    return 0;\n}\n",
+    "overall": 69,
+    "weighted": 83,
+    "efficiency": 55,
+    "time": "O(n²)",
+    "space": "O(1)",
+    "counts": {
+      "critical": 1,
+      "high": 2,
+      "medium": 1,
+      "low": 0,
+      "info": 0
+    },
+    "categories": {
+      "correctness": {
+        "score": 100,
+        "n": 0
+      },
+      "security": {
+        "score": 28,
+        "n": 3
+      },
+      "time": {
+        "score": 57,
+        "n": 1
+      },
+      "quality": {
+        "score": 100,
+        "n": 0
+      },
+      "readability": {
+        "score": 100,
+        "n": 0
+      },
+      "practices": {
+        "score": 100,
+        "n": 0
+      },
+      "space": {
+        "score": 100,
+        "n": 0
+      }
+    },
+    "findings": [
+      {
+        "id": "gets",
+        "cat": "security",
+        "sev": "critical",
+        "line": 8,
+        "noPenalty": false
+      },
+      {
+        "id": "strcpy",
+        "cat": "security",
+        "sev": "high",
+        "line": 9,
+        "noPenalty": false
+      },
+      {
+        "id": "strcpy",
+        "cat": "security",
+        "sev": "high",
+        "line": 10,
+        "noPenalty": false
+      },
+      {
+        "id": "strlen-loop",
+        "cat": "time",
+        "sev": "medium",
+        "line": 11,
+        "noPenalty": false
+      }
+    ]
+  },
+  {
+    "id": "cpp-pairs",
+    "lang": "cpp",
+    "code": "#include <bits/stdc++.h>\nusing namespace std;\n\nint countPairs(vector<int> nums, int k) {\n    int count = 0;\n    for (int i = 0; i < nums.size(); i++) {\n        for (int j = 0; j < nums.size(); j++) {\n            if (i != j && nums[i] - nums[j] == k) count++;\n        }\n    }\n    return count;\n}\n",
+    "overall": 89,
+    "weighted": 92,
+    "efficiency": 58,
+    "time": "O(n²)",
+    "space": "O(1)",
+    "counts": {
+      "critical": 0,
+      "high": 1,
+      "medium": 1,
+      "low": 3,
+      "info": 0
+    },
+    "categories": {
+      "correctness": {
+        "score": 95,
+        "n": 1
+      },
+      "security": {
+        "score": 100,
+        "n": 0
+      },
+      "time": {
+        "score": 68,
+        "n": 1
+      },
+      "quality": {
+        "score": 100,
+        "n": 0
+      },
+      "readability": {
+        "score": 100,
+        "n": 0
+      },
+      "practices": {
+        "score": 90,
+        "n": 2
+      },
+      "space": {
+        "score": 89,
+        "n": 1
+      }
+    },
+    "findings": [
+      {
+        "id": "nested-loop",
+        "cat": "time",
+        "sev": "high",
+        "line": 6,
+        "noPenalty": true
+      },
+      {
+        "id": "vector-by-value",
+        "cat": "space",
+        "sev": "medium",
+        "line": 4,
+        "noPenalty": false
+      },
+      {
+        "id": "bits",
+        "cat": "practices",
+        "sev": "low",
+        "line": 1,
+        "noPenalty": false
+      },
+      {
+        "id": "using-ns",
+        "cat": "practices",
+        "sev": "low",
+        "line": 2,
+        "noPenalty": false
+      },
+      {
+        "id": "signed-size",
+        "cat": "correctness",
+        "sev": "low",
+        "line": 6,
+        "noPenalty": false
+      }
+    ]
+  },
+  {
+    "id": "go-common",
+    "lang": "go",
+    "code": "package main\n\nimport (\n    \"fmt\"\n    \"strconv\"\n)\n\nfunc sumStrings(values []string) int {\n    total := 0\n    for _, v := range values {\n        n, _ := strconv.Atoi(v)\n        total += n\n    }\n    return total\n}\n\nfunc hasCommon(a []int, b []int) bool {\n    for _, x := range a {\n        for _, y := range b {\n            if x == y {\n                return true\n            }\n        }\n    }\n    return false\n}\n\nfunc main() {\n    fmt.Println(sumStrings([]string{\"1\", \"2\", \"x\"}))\n}\n",
+    "overall": 89,
+    "weighted": 92,
+    "efficiency": 58,
+    "time": "O(n²)",
+    "space": "O(n)",
+    "counts": {
+      "critical": 0,
+      "high": 1,
+      "medium": 1,
+      "low": 0,
+      "info": 0
+    },
+    "categories": {
+      "correctness": {
+        "score": 89,
+        "n": 1
+      },
+      "security": {
+        "score": 100,
+        "n": 0
+      },
+      "time": {
+        "score": 68,
+        "n": 1
+      },
+      "quality": {
+        "score": 100,
+        "n": 0
+      },
+      "readability": {
+        "score": 100,
+        "n": 0
+      },
+      "practices": {
+        "score": 100,
+        "n": 0
+      },
+      "space": {
+        "score": 92,
+        "n": 0
+      }
+    },
+    "findings": [
+      {
+        "id": "nested-loop",
+        "cat": "time",
+        "sev": "high",
+        "line": 18,
+        "noPenalty": true
+      },
+      {
+        "id": "go-ignored-err",
+        "cat": "correctness",
+        "sev": "medium",
+        "line": 11,
+        "noPenalty": false
+      }
+    ]
+  },
+  {
+    "id": "py-fib",
+    "lang": "python",
+    "code": "def fib(n):\n    if n < 2:\n        return n\n    return fib(n - 1) + fib(n - 2)\n\nprint(fib(30))\n",
+    "overall": 86,
+    "weighted": 89,
+    "efficiency": 20,
+    "time": "O(2ⁿ)",
+    "space": "O(n)",
+    "counts": {
+      "critical": 0,
+      "high": 1,
+      "medium": 0,
+      "low": 0,
+      "info": 1
+    },
+    "categories": {
+      "correctness": {
+        "score": 100,
+        "n": 0
+      },
+      "security": {
+        "score": 100,
+        "n": 0
+      },
+      "time": {
+        "score": 32,
+        "n": 1
+      },
+      "quality": {
+        "score": 98,
+        "n": 1
+      },
+      "readability": {
+        "score": 100,
+        "n": 0
+      },
+      "practices": {
+        "score": 100,
+        "n": 0
+      },
+      "space": {
+        "score": 92,
+        "n": 0
+      }
+    },
+    "findings": [
+      {
+        "id": "branching-rec",
+        "cat": "time",
+        "sev": "high",
+        "line": 1,
+        "noPenalty": true
+      },
+      {
+        "id": "debug-print",
+        "cat": "quality",
+        "sev": "info",
+        "line": 6,
+        "noPenalty": false
+      }
+    ]
+  },
+  {
+    "id": "py-binsearch",
+    "lang": "python",
+    "code": "def search(a, t):\n    lo, hi = 0, len(a) - 1\n    while lo <= hi:\n        mid = (lo + hi) // 2\n        if a[mid] == t:\n            return mid\n        if a[mid] < t:\n            lo = mid + 1\n        else:\n            hi = mid - 1\n    return -1\n",
+    "overall": 100,
+    "weighted": 100,
+    "efficiency": 95,
+    "time": "O(log n)",
+    "space": "O(1)",
+    "counts": {
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 0,
+      "info": 0
+    },
+    "categories": {
+      "correctness": {
+        "score": 100,
+        "n": 0
+      },
+      "security": {
+        "score": 100,
+        "n": 0
+      },
+      "time": {
+        "score": 99,
+        "n": 0
+      },
+      "quality": {
+        "score": 100,
+        "n": 0
+      },
+      "readability": {
+        "score": 100,
+        "n": 0
+      },
+      "practices": {
+        "score": 100,
+        "n": 0
+      },
+      "space": {
+        "score": 100,
+        "n": 0
+      }
+    },
+    "findings": []
+  },
+  {
+    "id": "py-sort",
+    "lang": "python",
+    "code": "def dedupe(items):\n    items = sorted(items)\n    out = []\n    for x in items:\n        if not out or out[-1] != x:\n            out.append(x)\n    return out\n",
+    "overall": 98,
+    "weighted": 98,
+    "efficiency": 82,
+    "time": "O(n log n)",
+    "space": "O(n)",
+    "counts": {
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 0,
+      "info": 0
+    },
+    "categories": {
+      "correctness": {
+        "score": 100,
+        "n": 0
+      },
+      "security": {
+        "score": 100,
+        "n": 0
+      },
+      "time": {
+        "score": 90,
+        "n": 0
+      },
+      "quality": {
+        "score": 100,
+        "n": 0
+      },
+      "readability": {
+        "score": 100,
+        "n": 0
+      },
+      "practices": {
+        "score": 100,
+        "n": 0
+      },
+      "space": {
+        "score": 92,
+        "n": 0
+      }
+    },
+    "findings": []
+  },
+  {
+    "id": "py-clean",
+    "lang": "python",
+    "code": "def total(values):\n    result = 0\n    for v in values:\n        result += v\n    return result\n",
+    "overall": 99,
+    "weighted": 99,
+    "efficiency": 88,
+    "time": "O(n)",
+    "space": "O(1)",
+    "counts": {
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 0,
+      "info": 0
+    },
+    "categories": {
+      "correctness": {
+        "score": 100,
+        "n": 0
+      },
+      "security": {
+        "score": 100,
+        "n": 0
+      },
+      "time": {
+        "score": 95,
+        "n": 0
+      },
+      "quality": {
+        "score": 100,
+        "n": 0
+      },
+      "readability": {
+        "score": 100,
+        "n": 0
+      },
+      "practices": {
+        "score": 100,
+        "n": 0
+      },
+      "space": {
+        "score": 100,
+        "n": 0
+      }
+    },
+    "findings": []
+  },
+  {
+    "id": "js-clean",
+    "lang": "javascript",
+    "code": "function sum(items) {\n  let total = 0;\n  for (const x of items) {\n    total += x;\n  }\n  return total;\n}\n",
+    "overall": 99,
+    "weighted": 99,
+    "efficiency": 88,
+    "time": "O(n)",
+    "space": "O(1)",
+    "counts": {
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 0,
+      "info": 0
+    },
+    "categories": {
+      "correctness": {
+        "score": 100,
+        "n": 0
+      },
+      "security": {
+        "score": 100,
+        "n": 0
+      },
+      "time": {
+        "score": 95,
+        "n": 0
+      },
+      "quality": {
+        "score": 100,
+        "n": 0
+      },
+      "readability": {
+        "score": 100,
+        "n": 0
+      },
+      "practices": {
+        "score": 100,
+        "n": 0
+      },
+      "space": {
+        "score": 100,
+        "n": 0
+      }
+    },
+    "findings": []
+  },
+  {
+    "id": "java-clean",
+    "lang": "java",
+    "code": "public class Sum {\n    static int sum(int[] a) {\n        int s = 0;\n        for (int x : a) {\n            s += x;\n        }\n        return s;\n    }\n}\n",
+    "overall": 99,
+    "weighted": 99,
+    "efficiency": 88,
+    "time": "O(n)",
+    "space": "O(1)",
+    "counts": {
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 0,
+      "info": 0
+    },
+    "categories": {
+      "correctness": {
+        "score": 100,
+        "n": 0
+      },
+      "security": {
+        "score": 100,
+        "n": 0
+      },
+      "time": {
+        "score": 95,
+        "n": 0
+      },
+      "quality": {
+        "score": 100,
+        "n": 0
+      },
+      "readability": {
+        "score": 100,
+        "n": 0
+      },
+      "practices": {
+        "score": 100,
+        "n": 0
+      },
+      "space": {
+        "score": 100,
+        "n": 0
+      }
+    },
+    "findings": []
+  },
+  {
+    "id": "c-clean",
+    "lang": "c",
+    "code": "#include <stdio.h>\n\nint sum(const int *a, int n) {\n    int s = 0;\n    for (int i = 0; i < n; i++) {\n        s += a[i];\n    }\n    return s;\n}\n",
+    "overall": 99,
+    "weighted": 99,
+    "efficiency": 88,
+    "time": "O(n)",
+    "space": "O(1)",
+    "counts": {
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 0,
+      "info": 0
+    },
+    "categories": {
+      "correctness": {
+        "score": 100,
+        "n": 0
+      },
+      "security": {
+        "score": 100,
+        "n": 0
+      },
+      "time": {
+        "score": 95,
+        "n": 0
+      },
+      "quality": {
+        "score": 100,
+        "n": 0
+      },
+      "readability": {
+        "score": 100,
+        "n": 0
+      },
+      "practices": {
+        "score": 100,
+        "n": 0
+      },
+      "space": {
+        "score": 100,
+        "n": 0
+      }
+    },
+    "findings": []
+  },
+  {
+    "id": "go-clean",
+    "lang": "go",
+    "code": "package main\n\nfunc sum(a []int) int {\n    s := 0\n    for _, x := range a {\n        s += x\n    }\n    return s\n}\n",
+    "overall": 99,
+    "weighted": 99,
+    "efficiency": 88,
+    "time": "O(n)",
+    "space": "O(1)",
+    "counts": {
+      "critical": 0,
+      "high": 0,
+      "medium": 0,
+      "low": 0,
+      "info": 0
+    },
+    "categories": {
+      "correctness": {
+        "score": 100,
+        "n": 0
+      },
+      "security": {
+        "score": 100,
+        "n": 0
+      },
+      "time": {
+        "score": 95,
+        "n": 0
+      },
+      "quality": {
+        "score": 100,
+        "n": 0
+      },
+      "readability": {
+        "score": 100,
+        "n": 0
+      },
+      "practices": {
+        "score": 100,
+        "n": 0
+      },
+      "space": {
+        "score": 100,
+        "n": 0
+      }
+    },
+    "findings": []
+  },
+  {
+    "id": "cpp-triple",
+    "lang": "cpp",
+    "code": "#include <vector>\n\nint triples(const std::vector<int>& a) {\n    int c = 0;\n    for (size_t i = 0; i < a.size(); i++) {\n        for (size_t j = i + 1; j < a.size(); j++) {\n            for (size_t k = j + 1; k < a.size(); k++) {\n                if (a[i] + a[j] + a[k] == 0) c++;\n            }\n        }\n    }\n    return c;\n}\n",
+    "overall": 84,
+    "weighted": 92,
+    "efficiency": 38,
+    "time": "O(n³)",
+    "space": "O(1)",
+    "counts": {
+      "critical": 1,
+      "high": 0,
+      "medium": 0,
+      "low": 0,
+      "info": 0
+    },
+    "categories": {
+      "correctness": {
+        "score": 100,
+        "n": 0
+      },
+      "security": {
+        "score": 100,
+        "n": 0
+      },
+      "time": {
+        "score": 46,
+        "n": 1
+      },
+      "quality": {
+        "score": 100,
+        "n": 0
+      },
+      "readability": {
+        "score": 100,
+        "n": 0
+      },
+      "practices": {
+        "score": 100,
+        "n": 0
+      },
+      "space": {
+        "score": 100,
+        "n": 0
+      }
+    },
+    "findings": [
+      {
+        "id": "nested-loop",
+        "cat": "time",
+        "sev": "critical",
+        "line": 5,
+        "noPenalty": true
+      }
+    ]
+  },
+  {
+    "id": "js-secret",
+    "lang": "javascript",
+    "code": "const apiKey = \"sk_live_123456\";\nfunction load(id) {\n  const q = \"SELECT * FROM users WHERE id = \" + id;\n  return db.query(q);\n}\n",
+    "overall": 81,
+    "weighted": 92,
+    "efficiency": 97,
+    "time": "O(1)",
+    "space": "O(1)",
+    "counts": {
+      "critical": 1,
+      "high": 1,
+      "medium": 0,
+      "low": 0,
+      "info": 0
+    },
+    "categories": {
+      "correctness": {
+        "score": 100,
+        "n": 0
+      },
+      "security": {
+        "score": 48,
+        "n": 2
+      },
+      "time": {
+        "score": 100,
+        "n": 0
+      },
+      "quality": {
+        "score": 100,
+        "n": 0
+      },
+      "readability": {
+        "score": 100,
+        "n": 0
+      },
+      "practices": {
+        "score": 100,
+        "n": 0
+      },
+      "space": {
+        "score": 100,
+        "n": 0
+      }
+    },
+    "findings": [
+      {
+        "id": "sqlconcat",
+        "cat": "security",
+        "sev": "critical",
+        "line": 3,
+        "noPenalty": false
+      },
+      {
+        "id": "secret",
+        "cat": "security",
+        "sev": "high",
+        "line": 1,
+        "noPenalty": false
+      }
+    ]
+  }
+]
