@@ -5,6 +5,12 @@ spring:
     url: ${CRX_DB_URL:jdbc:postgresql://${CRX_DB_HOST}:${CRX_DB_PORT:5432}/${CRX_DB_NAME}}
     username: ${CRX_DB_USER}
     password: ${CRX_DB_PASSWORD}
+    # Serverless PostgreSQL (e.g. Neon) suspends when idle: hold no idle connections and allow time for it to wake.
+    hikari:
+      maximum-pool-size: 4
+      minimum-idle: 0
+      idle-timeout: 60000
+      connection-timeout: 30000
 
 server:
   forward-headers-strategy: ${CRX_FORWARD_HEADERS:none}
