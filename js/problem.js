@@ -102,9 +102,10 @@
   function pre(text) { return '<pre>' + esc(text) + "</pre>"; }
 
   function renderRun(r, submit) {
+    // Caught before anything was sent, so don't claim the code ran remotely.
+    if (r.setupError) return '<span class="eyebrow">' + (submit ? "Submit" : "Output") + '</span><p class="field-error">' + esc(r.setupError) + "</p>";
     const head = '<span class="eyebrow">' + (submit ? "Submit" : "Output") + " · " + esc(r.judge || "judge") + "</span>" +
       '<div class="notice" role="note">' + icon("info") + "<span><strong>Executed remotely.</strong> Your code was sent to " + esc(r.judge || "the code-execution service") + ", an external service, to compile and run with time and memory limits.</span></div>";
-    if (r.setupError) return head + '<p class="field-error">' + esc(r.setupError) + "</p>";
     let h = head;
     if (r.statusId === 6) return h + '<p class="field-error"><strong>Compilation error.</strong> Fix it and run again.</p>' + pre(r.compileOutput || r.message || "");
     if (r.mode === "tests") {
