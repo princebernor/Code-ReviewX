@@ -5,6 +5,7 @@ services:
     name: code-reviewx-api
     runtime: docker
     plan: free
+    region: singapore
     dockerfilePath: backend/Dockerfile
     dockerContext: .
     healthCheckPath: /api/health
