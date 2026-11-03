@@ -122,9 +122,14 @@
       if ($("#remember").checked) localStorage.setItem("crx.rememberEmail", JSON.stringify(email.value.trim()));
       else localStorage.removeItem("crx.rememberEmail");
     } catch (err) {}
-    if (await serverUp) {
+    // The server may need up to a minute to wake; say so instead of looking stuck.
+    const btn = $(".auth-submit"), label = btn.textContent;
+    btn.disabled = true; btn.textContent = "Connecting to server…";
+    const up = await serverUp;
+    btn.disabled = false; btn.textContent = label;
+    if (up) {
       // Real sign-in. A failure never opens a session, demo or otherwise.
-      const btn = $(".auth-submit"); btn.disabled = true;
+      btn.disabled = true;
       try {
         await api.login(email.value.trim(), pw.value);
         pw.value = "";

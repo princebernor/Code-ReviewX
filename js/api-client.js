@@ -39,7 +39,7 @@
     if (body !== undefined) headers["Content-Type"] = "application/json";
     if (method !== "GET") headers["X-XSRF-TOKEN"] = cookie("XSRF-TOKEN") || "";
     const ctrl = new AbortController();
-    const timer = setTimeout(() => ctrl.abort(), opts.timeout || 20000);
+    const timer = setTimeout(() => ctrl.abort(), opts.timeout || 90000); // long enough for a sleeping server to wake
     let res;
     try {
       res = await fetch("/api" + path, { method, headers, credentials: "same-origin", body: body === undefined ? undefined : JSON.stringify(body), signal: ctrl.signal, keepalive: !!opts.keepalive });
@@ -73,12 +73,27 @@
   }
 
   /* ---------------- availability ---------------- */
+  /* A hosted server may be asleep and take about a minute to wake, answering 5xx or timing out meanwhile. A 4xx or a
+     non-JSON page means no backend here (plain static hosting); a file:// page can't reach /api at all. */
   let probe = null;
-  function available() {
-    if (!probe) {
-      probe = fetch("/api/health", { credentials: "same-origin", signal: AbortSignal.timeout ? AbortSignal.timeout(2500) : undefined })
-        .then((r) => r.ok ? r.json() : null).then((d) => !!(d && d.status === "UP"), () => false);
+  const WAKE_MS = 90000;
+  async function checkServer() {
+    if (location.protocol === "file:") return false;
+    const deadline = Date.now() + WAKE_MS;
+    while (Date.now() < deadline) {
+      try {
+        const r = await fetch("/api/health", { credentials: "same-origin", signal: AbortSignal.timeout ? AbortSignal.timeout(20000) : undefined });
+        if (r.ok) { const d = await r.json(); return !!(d && d.status === "UP"); }
+        if (r.status < 500) return false;
+      } catch (e) {
+        if (e instanceof SyntaxError) return false;
+      }
+      await new Promise((done) => setTimeout(done, 3000));
     }
+    return false;
+  }
+  function available() {
+    if (!probe) probe = checkServer();
     return probe;
   }
 
@@ -170,7 +185,7 @@
   }
 
   async function review(code, lang, filename) {
-    const r = await send("POST", "/review", { code, lang, filename: filename || null, save: true }, { timeout: 30000 });
+    const r = await send("POST", "/review", { code, lang, filename: filename || null, save: true });
     if (!r.at) r.at = Date.now();
     if (!r.id) r.id = "r" + Date.now().toString(36);
     if (r.code == null) r.code = code;
@@ -253,7 +268,7 @@
   }
 
   /** Practice Run/Submit: {lang, code, mode: "tests"|"stdin", cases?, stdin?}. Code goes to the server's external judge. */
-  const run = (payload) => send("POST", "/run", payload, { timeout: 70000 });
+  const run = (payload) => send("POST", "/run", payload);
 
   X.api = { ApiError, available, isAccount, login, register, forgot, reset, logout, review, run, pull, importDemo, adapt, pendingDemo: () => pendingDemo };
 })();

@@ -1,7 +1,8 @@
 # Production: PostgreSQL. Every credential comes from the environment (see backend/.env.example).
 spring:
   datasource:
-    url: ${CRX_DB_URL}
+    # Either a full JDBC URL, or the separate parts a Render Blueprint provides.
+    url: ${CRX_DB_URL:jdbc:postgresql://${CRX_DB_HOST}:${CRX_DB_PORT:5432}/${CRX_DB_NAME}}
     username: ${CRX_DB_USER}
     password: ${CRX_DB_PASSWORD}
 

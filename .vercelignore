@@ -1,0 +1,10 @@
+backend
+docs
+.github
+README.md
+run.sh
+docker-compose.yml
+render.yaml
+.dockerignore
+.gitattributes
+.gitignore
