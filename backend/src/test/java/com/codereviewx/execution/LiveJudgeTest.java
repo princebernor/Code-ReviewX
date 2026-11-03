@@ -18,6 +18,23 @@ import org.junit.jupiter.params.provider.CsvSource;
  */
 @EnabledIfEnvironmentVariable(named = "CRX_LIVE_JUDGE", matches = "1")
 class LiveJudgeTest {
+    /** Go isn't on the build machine, so its generated starters are proven here. */
+    @ParameterizedTest(name = "#{0} Go starter on Judge0 CE")
+    @CsvSource({"1", "26", "36", "92", "127", "170", "265", "335"})
+    @SuppressWarnings("unchecked")
+    void goStartersCompileOnTheRealJudge(int problem) throws Exception {
+        CrxProperties.Judge cfg = new CrxProperties.Judge(true, "https://ce.judge0.com", "", "X-Auth-Token", "", Duration.ofSeconds(60), 5, 10,
+            256000, 102400, 20, 10, Map.of("go", 107));
+        CrxProperties props = new CrxProperties(null, null, null, null, null, null, null, cfg);
+        RunService runs = new RunService(new Judge0Client(props, new ObjectMapper()), props);
+        HarnessExecutionTest.setUp();
+        Map<String, Object> p = HarnessExecutionTest.problems.stream().filter(x -> x.get("id").equals(problem)).findFirst().orElseThrow();
+        String code = ((Map<String, String>) p.get("starters")).get("go");
+        Map<String, Object> r = runs.runTests("go", code, HarnessExecutionTest.tests.get(problem));
+        assertThat(r.get("setupError")).as(String.valueOf(r)).isNull();
+        assertThat(r.get("statusId")).as(String.valueOf(r)).isEqualTo(3);
+    }
+
     @ParameterizedTest(name = "#{0} {1} on Judge0 CE")
     @CsvSource({"1, python", "36, cpp", "92, java", "127, javascript", "170, go", "335, c"})
     @SuppressWarnings("unchecked")

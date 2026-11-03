@@ -11,6 +11,8 @@ No CSS, layout, colours, fonts, images, IDs, navigation or placement content cha
 | `js/review.js` | Account sessions call `POST /api/review` in parallel with the existing step animation and render the result with the existing `renderScore/renderResults`; score badge says "AST analysis" for server results; review notice text corrected for account sessions | Review button calls the backend; the old notice ("Your code never leaves this page") would be false | Demo sessions keep the in-browser engine and original notice |
 | `js/problem.js` | For account sessions: **Run** sends the code and the selected test cases (or the custom input) to `POST /api/run` and shows each case's expected output, actual output and verdict, plus compile errors, stderr, time and memory; **Submit** runs every test case and marks the problem *Solved* only if all pass (otherwise *Attempted*). Adds a "Custom input (stdin)" box to the Test cases tab. Output says the code ran on an external service | Real compiler/runtime under Placement Practice, as requested | Demo sessions keep the original "Not executed" demonstration |
 
+**Later change:** `js/starters.js` (new, loaded by `problem.html`) holds the editor's starter code, moved out of `js/problem.js`. Problems with test cases now get a signature generated from those tests. Problems without tests keep the original template. The diffs below predate this change.
+
 ## Diffs
 
 ### `js/main.js`

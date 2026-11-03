@@ -126,6 +126,43 @@ class HarnessExecutionTest {
         assertAllPass(problem, lang, code);
     }
 
+    @SuppressWarnings("unchecked")
+    static Stream<Arguments> starters() throws Exception {
+        setUp();
+        List<Arguments> out = new ArrayList<>();
+        for (Map<String, Object> p : problems) {
+            for (Map.Entry<String, String> s : ((Map<String, String>) p.get("starters")).entrySet()) out.add(Arguments.of(p.get("id"), s.getKey(), s.getValue()));
+        }
+        return out.stream();
+    }
+
+    /** The untouched starter must reach the tests: compiled, called, and simply not correct yet. */
+    @ParameterizedTest(name = "#{0} starter in {1}")
+    @MethodSource("starters")
+    void generatedStartersCompileAndRun(int problem, String lang, String code) {
+        assumeTrue(LocalJudge.available(lang), lang + " toolchain not installed on this machine");
+        Map<String, Object> r = runs.runTests(lang, code, tests.get(problem));
+        if (problem == 265 && lang.equals("c")) { // 2-D arrays need C++ or another language; the message says so
+            assertThat(String.valueOf(r.get("setupError"))).contains("2-D array");
+            return;
+        }
+        assertThat(r.get("setupError")).as("#%d %s → %s", problem, lang, r).isNull();
+        assertThat(r.get("statusId")).as("#%d %s → %s", problem, lang, r).isEqualTo(3);
+        assertThat((List<?>) r.get("cases")).isNotEmpty();
+    }
+
+    @Test
+    void aFilledInStarterPassesAndAMismatchedSignatureIsExplained() {
+        assumeTrue(LocalJudge.available("java"));
+        String starter = "class Solution {\n    public String findEvenOrOdd(int n) {\n        return n % 2 == 0 ? \"Even\" : \"Odd\";\n    }\n}\n";
+        assertThat(runs.runTests("java", starter, tests.get(1)).get("allPassed")).isEqualTo(true);
+        String oldGeneric = "class Solution {\n    public int findEvenOrOdd(int[] arr) {\n        return 0;\n    }\n}\n";
+        assertThat(runs.runTests("java", oldGeneric, tests.get(1)).get("setupError").toString())
+            .contains("'int[]'").contains("doesn't match").contains("Reset to starter");
+        assertThat(runs.runTests("c", "int f(int arr[], int n) {\n    return 0;\n}\n", tests.get(1)).get("setupError").toString()).contains("doesn't match");
+        assertThat(runs.runTests("go", "package main\n\nfunc f(arr []int) int {\n    return 0\n}\n\nfunc main() {}\n", tests.get(1)).get("setupError").toString()).contains("doesn't match");
+    }
+
     @Test
     @SuppressWarnings("unchecked")
     void wrongAnswersAndCrashesAreReportedPerCase() {

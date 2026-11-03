@@ -22,6 +22,14 @@
     "solution": {
       "python": "def even_or_odd(n):\n    return \"Even\" if n % 2 == 0 else \"Odd\"",
       "cpp": "string evenOrOdd(long long n) {\n    return (n % 2 == 0) ? \"Even\" : \"Odd\";\n}"
+    },
+    "starters": {
+      "c": "/* Problem #1: Find even or odd */\n#include <stdio.h>\n#include <stdbool.h>\n\nconst char* findEvenOrOdd(int n) {\n    // write your solution here\n    return \"\";\n}\n\nint main(void) {\n    return 0;\n}\n",
+      "cpp": "// Problem #1: Find even or odd\n#include <iostream>\n#include <string>\n#include <vector>\n\nstd::string findEvenOrOdd(int n) {\n    // write your solution here\n    return std::string();\n}\n\nint main() {\n    return 0;\n}\n",
+      "java": "// Problem #1: Find even or odd\nclass Solution {\n    public String findEvenOrOdd(int n) {\n        // write your solution here\n        return \"\";\n    }\n}\n",
+      "python": "# Problem #1: Find even or odd\ndef find_even_or_odd(n):\n    # write your solution here\n    pass\n",
+      "javascript": "// Problem #1: Find even or odd\nfunction findEvenOrOdd(n) {\n  // write your solution here\n}\n",
+      "go": "// Problem #1: Find even or odd\npackage main\n\nfunc findEvenOrOdd(n int) string {\n    // write your solution here\n    return \"\"\n}\n\nfunc main() {}\n"
     }
   },
   {
@@ -47,6 +55,14 @@
     "solution": {
       "python": "def has_pair(arr, target):\n    seen = set()\n    for x in arr:\n        if target - x in seen:\n            return True\n        seen.add(x)\n    return False",
       "java": "boolean hasPair(int[] arr, int target) {\n    Set<Integer> seen = new HashSet<>();\n    for (int x : arr) {\n        if (seen.contains(target - x)) return true;\n        seen.add(x);\n    }\n    return false;\n}"
+    },
+    "starters": {
+      "c": "/* Problem #26: Find pair with given sum */\n#include <stdio.h>\n#include <stdbool.h>\n\nbool findPairWithGivenSum(int arr[], int arrLen, int target) {\n    // write your solution here\n    return false;\n}\n\nint main(void) {\n    return 0;\n}\n",
+      "cpp": "// Problem #26: Find pair with given sum\n#include <iostream>\n#include <string>\n#include <vector>\n\nbool findPairWithGivenSum(const std::vector<int>& arr, int target) {\n    // write your solution here\n    return false;\n}\n\nint main() {\n    return 0;\n}\n",
+      "java": "// Problem #26: Find pair with given sum\nclass Solution {\n    public boolean findPairWithGivenSum(int[] arr, int target) {\n        // write your solution here\n        return false;\n    }\n}\n",
+      "python": "# Problem #26: Find pair with given sum\ndef find_pair_with_given_sum(arr, target):\n    # write your solution here\n    pass\n",
+      "javascript": "// Problem #26: Find pair with given sum\nfunction findPairWithGivenSum(arr, target) {\n  // write your solution here\n}\n",
+      "go": "// Problem #26: Find pair with given sum\npackage main\n\nfunc findPairWithGivenSum(arr []int, target int) bool {\n    // write your solution here\n    return false\n}\n\nfunc main() {}\n"
     }
   },
   {
@@ -68,6 +84,14 @@
     "solution": {
       "python": "def trap(h):\n    l, r = 0, len(h) - 1\n    lmax = rmax = water = 0\n    while l < r:\n        if h[l] < h[r]:\n            lmax = max(lmax, h[l]); water += lmax - h[l]; l += 1\n        else:\n            rmax = max(rmax, h[r]); water += rmax - h[r]; r -= 1\n    return water",
       "cpp": "int trap(const vector<int>& h) {\n    int l = 0, r = (int)h.size() - 1, lmax = 0, rmax = 0, water = 0;\n    while (l < r) {\n        if (h[l] < h[r]) { lmax = max(lmax, h[l]); water += lmax - h[l++]; }\n        else            { rmax = max(rmax, h[r]); water += rmax - h[r--]; }\n    }\n    return water;\n}"
+    },
+    "starters": {
+      "c": "/* Problem #36: Trapping rain water */\n#include <stdio.h>\n#include <stdbool.h>\n\nint trappingRainWater(int arr[], int arrLen) {\n    // write your solution here\n    return 0;\n}\n\nint main(void) {\n    return 0;\n}\n",
+      "cpp": "// Problem #36: Trapping rain water\n#include <iostream>\n#include <string>\n#include <vector>\n\nint trappingRainWater(const std::vector<int>& arr) {\n    // write your solution here\n    return 0;\n}\n\nint main() {\n    return 0;\n}\n",
+      "java": "// Problem #36: Trapping rain water\nclass Solution {\n    public int trappingRainWater(int[] arr) {\n        // write your solution here\n        return 0;\n    }\n}\n",
+      "python": "# Problem #36: Trapping rain water\ndef trapping_rain_water(arr):\n    # write your solution here\n    pass\n",
+      "javascript": "// Problem #36: Trapping rain water\nfunction trappingRainWater(arr) {\n  // write your solution here\n}\n",
+      "go": "// Problem #36: Trapping rain water\npackage main\n\nfunc trappingRainWater(arr []int) int {\n    // write your solution here\n    return 0\n}\n\nfunc main() {}\n"
     }
   },
   {
@@ -89,6 +113,14 @@
     "solution": {
       "python": "def majority(arr):\n    cand, cnt = None, 0\n    for x in arr:\n        if cnt == 0:\n            cand = x\n        cnt += 1 if x == cand else -1\n    return cand if arr.count(cand) > len(arr) // 2 else -1",
       "java": "int majority(int[] a) {\n    int cand = 0, cnt = 0;\n    for (int x : a) { if (cnt == 0) cand = x; cnt += (x == cand) ? 1 : -1; }\n    int c = 0; for (int x : a) if (x == cand) c++;\n    return c > a.length / 2 ? cand : -1;\n}"
+    },
+    "starters": {
+      "c": "/* Problem #37: Majority element */\n#include <stdio.h>\n#include <stdbool.h>\n\nint majorityElement(int arr[], int arrLen) {\n    // write your solution here\n    return 0;\n}\n\nint main(void) {\n    return 0;\n}\n",
+      "cpp": "// Problem #37: Majority element\n#include <iostream>\n#include <string>\n#include <vector>\n\nint majorityElement(const std::vector<int>& arr) {\n    // write your solution here\n    return 0;\n}\n\nint main() {\n    return 0;\n}\n",
+      "java": "// Problem #37: Majority element\nclass Solution {\n    public int majorityElement(int[] arr) {\n        // write your solution here\n        return 0;\n    }\n}\n",
+      "python": "# Problem #37: Majority element\ndef majority_element(arr):\n    # write your solution here\n    pass\n",
+      "javascript": "// Problem #37: Majority element\nfunction majorityElement(arr) {\n  // write your solution here\n}\n",
+      "go": "// Problem #37: Majority element\npackage main\n\nfunc majorityElement(arr []int) int {\n    // write your solution here\n    return 0\n}\n\nfunc main() {}\n"
     }
   },
   {
@@ -110,6 +142,14 @@
     "solution": {
       "python": "def max_subarray(arr):\n    best = cur = arr[0]\n    for x in arr[1:]:\n        cur = max(x, cur + x)\n        best = max(best, cur)\n    return best",
       "cpp": "long long maxSubarray(const vector<int>& a) {\n    long long best = a[0], cur = a[0];\n    for (size_t i = 1; i < a.size(); ++i) {\n        cur = max<long long>(a[i], cur + a[i]);\n        best = max(best, cur);\n    }\n    return best;\n}"
+    },
+    "starters": {
+      "c": "/* Problem #38: Kadane's algo */\n#include <stdio.h>\n#include <stdbool.h>\n\nint kadaneSAlgo(int arr[], int arrLen) {\n    // write your solution here\n    return 0;\n}\n\nint main(void) {\n    return 0;\n}\n",
+      "cpp": "// Problem #38: Kadane's algo\n#include <iostream>\n#include <string>\n#include <vector>\n\nint kadaneSAlgo(const std::vector<int>& arr) {\n    // write your solution here\n    return 0;\n}\n\nint main() {\n    return 0;\n}\n",
+      "java": "// Problem #38: Kadane's algo\nclass Solution {\n    public int kadaneSAlgo(int[] arr) {\n        // write your solution here\n        return 0;\n    }\n}\n",
+      "python": "# Problem #38: Kadane's algo\ndef kadane_s_algo(arr):\n    # write your solution here\n    pass\n",
+      "javascript": "// Problem #38: Kadane's algo\nfunction kadaneSAlgo(arr) {\n  // write your solution here\n}\n",
+      "go": "// Problem #38: Kadane's algo\npackage main\n\nfunc kadaneSAlgo(arr []int) int {\n    // write your solution here\n    return 0\n}\n\nfunc main() {}\n"
     }
   },
   {
@@ -131,6 +171,14 @@
     "solution": {
       "python": "def search(arr, target):\n    lo, hi = 0, len(arr) - 1\n    while lo <= hi:\n        mid = lo + (hi - lo) // 2\n        if arr[mid] == target:\n            return mid\n        if arr[mid] < target:\n            lo = mid + 1\n        else:\n            hi = mid - 1\n    return -1",
       "java": "int search(int[] a, int t) {\n    int lo = 0, hi = a.length - 1;\n    while (lo <= hi) {\n        int mid = lo + (hi - lo) / 2;\n        if (a[mid] == t) return mid;\n        if (a[mid] < t) lo = mid + 1; else hi = mid - 1;\n    }\n    return -1;\n}"
+    },
+    "starters": {
+      "c": "/* Problem #58: Search in a sorted array */\n#include <stdio.h>\n#include <stdbool.h>\n\nint searchInASortedArray(int arr[], int arrLen, int target) {\n    // write your solution here\n    return 0;\n}\n\nint main(void) {\n    return 0;\n}\n",
+      "cpp": "// Problem #58: Search in a sorted array\n#include <iostream>\n#include <string>\n#include <vector>\n\nint searchInASortedArray(const std::vector<int>& arr, int target) {\n    // write your solution here\n    return 0;\n}\n\nint main() {\n    return 0;\n}\n",
+      "java": "// Problem #58: Search in a sorted array\nclass Solution {\n    public int searchInASortedArray(int[] arr, int target) {\n        // write your solution here\n        return 0;\n    }\n}\n",
+      "python": "# Problem #58: Search in a sorted array\ndef search_in_a_sorted_array(arr, target):\n    # write your solution here\n    pass\n",
+      "javascript": "// Problem #58: Search in a sorted array\nfunction searchInASortedArray(arr, target) {\n  // write your solution here\n}\n",
+      "go": "// Problem #58: Search in a sorted array\npackage main\n\nfunc searchInASortedArray(arr []int, target int) int {\n    // write your solution here\n    return 0\n}\n\nfunc main() {}\n"
     }
   },
   {
@@ -152,6 +200,14 @@
     "solution": {
       "python": "def reverse(head):\n    prev = None\n    while head:\n        nxt = head.next\n        head.next = prev\n        prev, head = head, nxt\n    return prev",
       "java": "ListNode reverse(ListNode head) {\n    ListNode prev = null;\n    while (head != null) {\n        ListNode nxt = head.next;\n        head.next = prev;\n        prev = head;\n        head = nxt;\n    }\n    return prev;\n}"
+    },
+    "starters": {
+      "c": "/* Problem #92: Reverse a LL\n   struct ListNode has fields val and next */\n#include <stdio.h>\n#include <stdbool.h>\n\nstruct ListNode* reverseALl(struct ListNode* head) {\n    // write your solution here\n    return NULL;\n}\n\nint main(void) {\n    return 0;\n}\n",
+      "cpp": "// Problem #92: Reverse a LL\n// ListNode has fields val and next\n#include <iostream>\n#include <string>\n#include <vector>\n\nListNode* reverseALl(ListNode* head) {\n    // write your solution here\n    return nullptr;\n}\n\nint main() {\n    return 0;\n}\n",
+      "java": "// Problem #92: Reverse a LL\n// ListNode has fields val and next\nclass Solution {\n    public ListNode reverseALl(ListNode head) {\n        // write your solution here\n        return null;\n    }\n}\n",
+      "python": "# Problem #92: Reverse a LL\n# ListNode has fields val and next\ndef reverse_a_ll(head):\n    # write your solution here\n    pass\n",
+      "javascript": "// Problem #92: Reverse a LL\n// ListNode has fields val and next\nfunction reverseALl(head) {\n  // write your solution here\n}\n",
+      "go": "// Problem #92: Reverse a LL\n// ListNode has fields Val and Next\npackage main\n\nfunc reverseALl(head *ListNode) *ListNode {\n    // write your solution here\n    return nil\n}\n\nfunc main() {}\n"
     }
   },
   {
@@ -177,6 +233,14 @@
     "solution": {
       "python": "def balanced(s):\n    pairs = {')': '(', ']': '[', '}': '{'}\n    st = []\n    for c in s:\n        if c in '([{':\n            st.append(c)\n        elif not st or st.pop() != pairs[c]:\n            return False\n    return not st",
       "javascript": "function balanced(s) {\n  const pairs = { ')': '(', ']': '[', '}': '{' };\n  const st = [];\n  for (const c of s) {\n    if ('([{'.includes(c)) st.push(c);\n    else if (st.pop() !== pairs[c]) return false;\n  }\n  return st.length === 0;\n}"
+    },
+    "starters": {
+      "c": "/* Problem #127: Check for balanced paranthesis */\n#include <stdio.h>\n#include <stdbool.h>\n\nbool checkForBalancedParanthesis(const char* s) {\n    // write your solution here\n    return false;\n}\n\nint main(void) {\n    return 0;\n}\n",
+      "cpp": "// Problem #127: Check for balanced paranthesis\n#include <iostream>\n#include <string>\n#include <vector>\n\nbool checkForBalancedParanthesis(const std::string& s) {\n    // write your solution here\n    return false;\n}\n\nint main() {\n    return 0;\n}\n",
+      "java": "// Problem #127: Check for balanced paranthesis\nclass Solution {\n    public boolean checkForBalancedParanthesis(String s) {\n        // write your solution here\n        return false;\n    }\n}\n",
+      "python": "# Problem #127: Check for balanced paranthesis\ndef check_for_balanced_paranthesis(s):\n    # write your solution here\n    pass\n",
+      "javascript": "// Problem #127: Check for balanced paranthesis\nfunction checkForBalancedParanthesis(s) {\n  // write your solution here\n}\n",
+      "go": "// Problem #127: Check for balanced paranthesis\npackage main\n\nfunc checkForBalancedParanthesis(s string) bool {\n    // write your solution here\n    return false\n}\n\nfunc main() {}\n"
     }
   },
   {
@@ -202,6 +266,14 @@
     "solution": {
       "python": "def longest_unique(s):\n    last, left, best = {}, 0, 0\n    for i, c in enumerate(s):\n        if c in last and last[c] >= left:\n            left = last[c] + 1\n        last[c] = i\n        best = max(best, i - left + 1)\n    return best",
       "go": "func longestUnique(s string) int {\n    last := map[rune]int{}\n    left, best := 0, 0\n    for i, c := range s {\n        if j, ok := last[c]; ok && j >= left {\n            left = j + 1\n        }\n        last[c] = i\n        if i-left+1 > best {\n            best = i - left + 1\n        }\n    }\n    return best\n}"
+    },
+    "starters": {
+      "c": "/* Problem #170: Length of longest substring */\n#include <stdio.h>\n#include <stdbool.h>\n\nint lengthOfLongestSubstring(const char* s) {\n    // write your solution here\n    return 0;\n}\n\nint main(void) {\n    return 0;\n}\n",
+      "cpp": "// Problem #170: Length of longest substring\n#include <iostream>\n#include <string>\n#include <vector>\n\nint lengthOfLongestSubstring(const std::string& s) {\n    // write your solution here\n    return 0;\n}\n\nint main() {\n    return 0;\n}\n",
+      "java": "// Problem #170: Length of longest substring\nclass Solution {\n    public int lengthOfLongestSubstring(String s) {\n        // write your solution here\n        return 0;\n    }\n}\n",
+      "python": "# Problem #170: Length of longest substring\ndef length_of_longest_substring(s):\n    # write your solution here\n    pass\n",
+      "javascript": "// Problem #170: Length of longest substring\nfunction lengthOfLongestSubstring(s) {\n  // write your solution here\n}\n",
+      "go": "// Problem #170: Length of longest substring\npackage main\n\nfunc lengthOfLongestSubstring(s string) int {\n    // write your solution here\n    return 0\n}\n\nfunc main() {}\n"
     }
   },
   {
@@ -222,6 +294,14 @@
     ],
     "solution": {
       "python": "from collections import deque\n\ndef num_islands(g):\n    m, n, count = len(g), len(g[0]), 0\n    for i in range(m):\n        for j in range(n):\n            if g[i][j] == '1':\n                count += 1\n                g[i][j] = '0'\n                q = deque([(i, j)])\n                while q:\n                    r, c = q.popleft()\n                    for dr, dc in ((1,0),(-1,0),(0,1),(0,-1)):\n                        x, y = r + dr, c + dc\n                        if 0 <= x < m and 0 <= y < n and g[x][y] == '1':\n                            g[x][y] = '0'\n                            q.append((x, y))\n    return count"
+    },
+    "starters": {
+      "c": "/* Problem #265: Number of Islands */\n#include <stdio.h>\n#include <stdbool.h>\n\nint numberOfIslands(int** grid) {\n    // write your solution here\n    return 0;\n}\n\nint main(void) {\n    return 0;\n}\n",
+      "cpp": "// Problem #265: Number of Islands\n#include <iostream>\n#include <string>\n#include <vector>\n\nint numberOfIslands(const std::vector<std::vector<int>>& grid) {\n    // write your solution here\n    return 0;\n}\n\nint main() {\n    return 0;\n}\n",
+      "java": "// Problem #265: Number of Islands\nclass Solution {\n    public int numberOfIslands(int[][] grid) {\n        // write your solution here\n        return 0;\n    }\n}\n",
+      "python": "# Problem #265: Number of Islands\ndef number_of_islands(grid):\n    # write your solution here\n    pass\n",
+      "javascript": "// Problem #265: Number of Islands\nfunction numberOfIslands(grid) {\n  // write your solution here\n}\n",
+      "go": "// Problem #265: Number of Islands\npackage main\n\nfunc numberOfIslands(grid [][]int) int {\n    // write your solution here\n    return 0\n}\n\nfunc main() {}\n"
     }
   },
   {
@@ -243,6 +323,14 @@
     "solution": {
       "python": "def count_ways(n, mod=10**9 + 7):\n    a, b = 1, 1  # ways(0), ways(1)\n    for _ in range(n - 1):\n        a, b = b, (a + b) % mod\n    return b",
       "c": "long long countWays(int n) {\n    const long long MOD = 1000000007LL;\n    long long a = 1, b = 1;\n    for (int i = 2; i <= n; i++) { long long c = (a + b) % MOD; a = b; b = c; }\n    return b;\n}"
+    },
+    "starters": {
+      "c": "/* Problem #335: Count way to reach nth stair(Order matters) */\n#include <stdio.h>\n#include <stdbool.h>\n\nint countWayToReachNth(int n) {\n    // write your solution here\n    return 0;\n}\n\nint main(void) {\n    return 0;\n}\n",
+      "cpp": "// Problem #335: Count way to reach nth stair(Order matters)\n#include <iostream>\n#include <string>\n#include <vector>\n\nint countWayToReachNth(int n) {\n    // write your solution here\n    return 0;\n}\n\nint main() {\n    return 0;\n}\n",
+      "java": "// Problem #335: Count way to reach nth stair(Order matters)\nclass Solution {\n    public int countWayToReachNth(int n) {\n        // write your solution here\n        return 0;\n    }\n}\n",
+      "python": "# Problem #335: Count way to reach nth stair(Order matters)\ndef count_way_to_reach_nth(n):\n    # write your solution here\n    pass\n",
+      "javascript": "// Problem #335: Count way to reach nth stair(Order matters)\nfunction countWayToReachNth(n) {\n  // write your solution here\n}\n",
+      "go": "// Problem #335: Count way to reach nth stair(Order matters)\npackage main\n\nfunc countWayToReachNth(n int) int {\n    // write your solution here\n    return 0\n}\n\nfunc main() {}\n"
     }
   }
 ]

@@ -300,7 +300,13 @@ public final class Harness {
             if (a.items().isEmpty()) return "new ArrayList<" + elem + ">()";
             return "new ArrayList<" + elem + ">(Arrays.asList(" + String.join(", ", a.items().stream().map(x -> javaLit(elem, x)).toList()) + "))";
         }
+        if (t.endsWith("[]") || m.matches() || t.matches("int|long|short|byte|double|float|boolean|String|char|ListNode|Integer|Long|Double|Boolean|Character")) throw mismatch(rawType);
         throw new HarnessException("Parameter type '" + rawType + "' isn't supported by the automatic tests. Use int, long, double, boolean, String, arrays, Lists or ListNode.");
+    }
+
+    /** The user's declared parameter type doesn't fit what the test cases pass in. */
+    private static HarnessException mismatch(String type) {
+        return new HarnessException("Your parameter type '" + type + "' doesn't match this problem's test input. Change it to match the Input section, or choose Reset to starter for a matching signature.");
     }
 
     /** Nested array initializers omit the "new T[]" for inner levels. */
@@ -314,7 +320,7 @@ public final class Harness {
 
     private static String num(TestValue v, String type, String suffix) {
         if (v instanceof TestValue.Num n) return n.text() + suffix;
-        throw new HarnessException("A test value doesn't fit the parameter type '" + type + "'.");
+        throw mismatch(type);
     }
 
     static String stripPackage(String code) {
@@ -432,7 +438,7 @@ public final class Harness {
             if (vi >= values.size()) throw new HarnessException(fn.name() + "() has more parameters than the test inputs provide.");
             TestValue v = values.get(vi++);
             if (type.contains("ListNode")) {
-                if (!(v instanceof TestValue.LinkedList l)) throw new HarnessException("A test value doesn't fit the ListNode parameter.");
+                if (!(v instanceof TestValue.LinkedList l)) throw mismatch(type);
                 String items = String.join(", ", l.items().stream().map(x -> num(x, "int", "")).toList());
                 if (cpp) decls.add("ListNode* " + var + " = crxList({" + items + "});");
                 else decls.add(l.items().isEmpty() ? "struct ListNode* " + var + " = NULL;" : "int " + var + "_v[] = {" + items + "}; struct ListNode* " + var + " = crxList(" + var + "_v, " + l.items().size() + ");");
@@ -453,14 +459,15 @@ public final class Harness {
                 lastArray = var;
                 continue;
             }
+            if (ptr && !type.contains("void")) throw mismatch(type + "*");
             if (cpp && type.replace("std::", "").matches("vector<.*>")) {
-                if (!(v instanceof TestValue.Arr)) throw new HarnessException("A test value doesn't fit the parameter type '" + type + "'.");
+                if (!(v instanceof TestValue.Arr)) throw mismatch(type);
                 decls.add(type + " " + var + " = " + cppInit(type.replace("std::", ""), v) + ";");
                 args.add(var);
                 continue;
             }
             if (cpp && type.replace("std::", "").equals("string")) {
-                if (!(v instanceof TestValue.Str s)) throw new HarnessException("A test value doesn't fit the string parameter.");
+                if (!(v instanceof TestValue.Str s)) throw mismatch(type);
                 decls.add("string " + var + " = " + TestValue.quote(s.value()) + ";");
                 args.add(var);
                 continue;
@@ -485,7 +492,7 @@ public final class Harness {
             case TestValue.Num n -> n.text() + (type.contains("long long") && n.integral() ? "LL" : "");
             case TestValue.Bool b -> b.value() ? "true" : "false";
             case TestValue.Str s -> type.contains("char") && s.value().length() == 1 ? "'" + s.value() + "'" : TestValue.quote(s.value());
-            default -> throw new HarnessException("A test value doesn't fit the parameter type '" + type + "'.");
+            default -> throw mismatch(type);
         };
     }
 
@@ -557,8 +564,9 @@ public final class Harness {
     private static String goLit(String type, TestValue v) {
         if (type.equals("*ListNode")) {
             if (v instanceof TestValue.LinkedList l) return l.items().isEmpty() ? "nil" : "crxList([]int{" + String.join(", ", l.items().stream().map(x -> num(x, "int", "")).toList()) + "})";
-            throw new HarnessException("A test value doesn't fit the *ListNode parameter.");
+            throw mismatch(type);
         }
+        if (type.startsWith("[]") && !(v instanceof TestValue.Arr)) throw mismatch(type);
         if (type.startsWith("[]") && v instanceof TestValue.Arr a) {
             String elem = type.substring(2);
             return type + "{" + String.join(", ", a.items().stream().map(x -> elem.startsWith("[]") && x instanceof TestValue.Arr ? goLit(elem, x).substring(elem.length()) : goLit(elem, x)).toList()) + "}";

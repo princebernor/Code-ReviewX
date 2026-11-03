@@ -71,25 +71,17 @@
   $$("[data-copysol]").forEach((b) => b.addEventListener("click", () => X.copyText(d.solution[b.dataset.copysol], "Solution")));
 
   /* ---------- editor + starter code ---------- */
-  const fn = p.t.replace(/\(.*?\)/g, "").replace(/[^a-zA-Z0-9 ]/g, " ").trim().split(/\s+/).slice(0, 5).map((w, i) => (i ? w.charAt(0).toUpperCase() + w.slice(1).toLowerCase() : w.toLowerCase())).join("") || "solve";
-  const fnName = /^[0-9]/.test(fn) ? "solve" + fn : fn;
-  const snake = fnName.replace(/[A-Z]/g, (c) => "_" + c.toLowerCase());
-  function starter(lang) {
-    const head = "Problem #" + p.id + ": " + p.t;
-    return {
-      c: "/* " + head + " */\n#include <stdio.h>\n\nint " + fnName + "(int arr[], int n) {\n    // write your solution here\n    return 0;\n}\n\nint main(void) {\n    return 0;\n}\n",
-      cpp: "// " + head + "\n#include <iostream>\n#include <vector>\n\nint " + fnName + "(const std::vector<int>& arr) {\n    // write your solution here\n    return 0;\n}\n\nint main() {\n    return 0;\n}\n",
-      java: "// " + head + "\nclass Solution {\n    public int " + fnName + "(int[] arr) {\n        // write your solution here\n        return 0;\n    }\n}\n",
-      python: "# " + head + "\ndef " + snake + "(arr):\n    # write your solution here\n    pass\n",
-      javascript: "// " + head + "\nfunction " + fnName + "(arr) {\n  // write your solution here\n}\n",
-      go: "// " + head + "\npackage main\n\nfunc " + fnName + "(arr []int) int {\n    // write your solution here\n    return 0\n}\n\nfunc main() {}\n"
-    }[lang];
-  }
+  const starter = (lang) => X.Starters.forProblem(p, tests, lang);
   const ta = $("#pcode"), langSel = $("#plang");
   let saveT;
   const ed = X.editor(ta, (v, n) => { $("#pLines").textContent = n + " line" + (n === 1 ? "" : "s"); clearTimeout(saveT); saveT = setTimeout(() => store.saveDraft(p.id, langSel.value, v), 300); });
   window.addEventListener("pagehide", () => { clearTimeout(saveT); store.saveDraft(p.id, langSel.value, ta.value); });
-  function loadLang() { const dr = store.drafts()[p.id + ":" + langSel.value]; ed.set(dr != null ? dr : starter(langSel.value)); }
+  function loadLang() {
+    const dr = store.drafts()[p.id + ":" + langSel.value];
+    // An untouched copy of the old generic template was saved as a draft on page exit; it isn't the user's work.
+    const untouched = dr != null && dr.trim() === X.Starters.generic(p, langSel.value).trim();
+    ed.set(dr != null && !untouched ? dr : starter(langSel.value));
+  }
   loadLang();
   langSel.addEventListener("change", () => { store.setPref("lang", langSel.value); loadLang(); });
   $("#resetCode").addEventListener("click", () => X.dialog({ title: "Reset to starter code?", body: "<p>This replaces your " + X.langLabel(langSel.value) + " code for this problem with the starter template.</p>", actions: [{ label: "Cancel" }, { label: "Reset", primary: true, onClick: () => { ed.set(starter(langSel.value)); X.toast("Starter code restored"); } }] }));

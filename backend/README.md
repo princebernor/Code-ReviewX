@@ -122,7 +122,7 @@ code ─▶ InputValidator ─▶ LanguageModule.parse ─▶ unified AST (UNode
 
 ## Test results
 
-`mvn verify` on Windows 11, JDK 25 (release 21), 2026-10-28: **302 tests, 0 failures, 2 skipped, BUILD SUCCESS**. The skips are `go` in the local harness test (Go isn't installed on the build machine) and the opt-in live Judge0 test; run separately with `CRX_LIVE_JUDGE=1`, it passed for all six languages, including Go.
+`mvn verify` on Windows 11, JDK 25 (release 21), 2026-10-28: **370 tests, 0 failures, 14 skipped, BUILD SUCCESS**. The skips are Go in the local harness test (Go isn't installed on the build machine) and the opt-in live Judge0 test; run separately with `CRX_LIVE_JUDGE=1`, it passes on the real judge, including Go.
 
 | Suite | Tests | Covers |
 |---|---:|---|
@@ -130,7 +130,7 @@ code ─▶ InputValidator ─▶ LanguageModule.parse ─▶ unified AST (UNode
 | `ApiFlowTest` | 10 | languages, anonymous vs saved review, frontend error codes, 413, owner-only history (404 for others), import validation, per-user progress + 409, `/api/ast`, `/api/compare`, explanation mode, static allow-list + CSP, no secrets in browser files |
 | `RuleCorpusTest` | 173 | every one of the 57 rules: positive, negative and partial-syntax cases; span-based fix check; catalog completeness |
 | `AnalysisTest` | 28 | missing return in the built-in sample, undefined Python names (incl. a no-false-positive program using every binding form), syntax errors as findings in all six languages; all six parsers normalize functions, loops, branches, paths and spans; 10 complexity cases across languages; syntax-error recovery in all six; Java snippets; non-ASCII columns; validation codes; **no execution**; fingerprints |
-| `HarnessExecutionTest` | 44 | the generated test programs, compiled and run with the local Python, Node, javac, gcc and g++: every reference solution in `data/problem-details.js` plus 18 user-style programs (LeetCode-style classes, C arrays + length, linked lists, grids, strings) pass; wrong answers, exceptions, compile errors and custom-input runs are reported correctly |
+| `HarnessExecutionTest` | 111 | generated starter code for every problem and language reaches the tests, mismatched signatures get a clear message, and the generated test programs, compiled and run with the local Python, Node, javac, gcc and g++: every reference solution in `data/problem-details.js` plus 18 user-style programs (LeetCode-style classes, C arrays + length, linked lists, grids, strings) pass; wrong answers, exceptions, compile errors and custom-input runs are reported correctly |
 | `RunApiTest` | 4 | `/api/run` needs an account, per-case grading, setup and compile errors explained, per-user rate limit (fake judge, no network) |
 | `LiveJudgeTest` | 6 (opt-in) | one reference solution per language on the real Judge0 CE |
 | `ScoringParityTest` | 33 | against the **unmodified** `js/review-engine.js` run in Node (`src/test/js/export-parity.cjs`) on 16 snippets (the 6 built-in samples + 10 more) |
