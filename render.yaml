@@ -10,6 +10,10 @@ services:
     dockerContext: .
     healthCheckPath: /api/health
     autoDeploy: true
+    # The frontend is served by Vercel, so frontend-only commits need no backend rebuild.
+    buildFilter:
+      paths:
+        - backend/**
     envVars:
       - key: SPRING_PROFILES_ACTIVE
         value: prod

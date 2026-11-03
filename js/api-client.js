@@ -50,6 +50,15 @@
     const text = await res.text();
     try { data = text ? JSON.parse(text) : null; } catch (e) { data = null; }
     if (res.ok) return data;
+    // A gateway error without our JSON body means the request never reached the app: the server is waking up.
+    if ([502, 503, 504].indexOf(res.status) > -1 && !(data && data.error)) {
+      const started = opts.wakeStart || Date.now();
+      if (Date.now() - started < WAKE_MS) {
+        await new Promise((done) => setTimeout(done, 3000));
+        return send(method, path, body, Object.assign({}, opts, { wakeStart: started }));
+      }
+      throw new ApiError(res.status, "server_waking", "The server is taking too long to wake up. Try again in a minute.");
+    }
     const code = data && data.error ? data.error : "http_" + res.status;
     if (res.status === 403 && code === "csrf_failed" && !opts.csrfRetried) {
       try { await fetch("/api/auth/csrf", { credentials: "same-origin" }); } catch (e) {}

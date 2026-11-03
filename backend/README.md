@@ -26,7 +26,7 @@ cp backend/.env.example backend/.env
 docker compose --env-file backend/.env up --build
 ```
 
-Edit `backend/.env` before running. Serve the app behind HTTPS: cookies are `Secure` in prod, so plain HTTP will not keep a session. Docker was not available on the build machine, so the Dockerfile and compose file are **untested**.
+Edit `backend/.env` before running. Serve the app behind HTTPS: cookies are `Secure` in prod, so plain HTTP will not keep a session. The Dockerfile is exercised by the hosted deployment below; `docker-compose.yml` has not been run.
 
 ### Configuration (environment variables)
 
@@ -48,6 +48,21 @@ Edit `backend/.env` before running. Serve the app behind HTTPS: cookies are `Sec
 Other tunables (`crx.*` in `application.yml`): token lifetimes (access 15 min, refresh 7 days absolute), BCrypt strength 12, rate limits, review limits (2,000 lines, 512 KB, 5 s timeout, 4 workers), history cap (500 per user), `crx.history.store-source`.
 
 No secret is in source, config defaults or the frontend. The API key mentioned in the original request was **not** used anywhere; if it was real, rotate it.
+
+## Hosted deployment
+
+Live at **https://code-reviewx.vercel.app**.
+
+| Part | Service | Config |
+|---|---|---|
+| Frontend | Vercel (static) | `vercel.json`, `.vercelignore` |
+| Backend | Render free web service, Docker, Singapore | `render.yaml` |
+| Database | Neon free PostgreSQL, Singapore | `CRX_DB_URL`, `CRX_DB_USER`, `CRX_DB_PASSWORD` in the Render dashboard |
+| Code execution | public Judge0 CE | `crx.judge.*` |
+
+Vercel forwards `/api/*` to `code-reviewx-api.onrender.com`, so the browser sees one site and the login cookies stay first-party. `git push` to `main` redeploys both; Render only rebuilds for changes under `backend/`.
+
+Known limits of the free plans: the backend sleeps after about 15 idle minutes and takes about a minute to wake (the client waits and retries gateway errors meanwhile); password-reset emails aren't sent because no email service is configured, so resets don't work on the hosted site; rate limits are per server instance.
 
 ## Security model
 
@@ -133,7 +148,7 @@ The integrated UI was also exercised in a browser against the running server: wr
 **Known data issue (frontend, not changed):** `data/problem-details.js` #265 *Number of islands* has number grids in its test cases, but its Python reference solution compares cells with the string `'1'`. Run on the real judge, it fails (0 islands); the same code comparing with `1` passes. Fix one or the other in the data file.
 
 **Implemented, not fully verified:**
-* Production deployment: PostgreSQL migration compatibility is by design (`V1__init.sql` uses portable SQL and runs on H2 in PostgreSQL mode) but was not run against a real PostgreSQL. The Dockerfile and compose file are unbuilt because Docker isn't installed here.
+* `docker-compose.yml` has not been run (Docker isn't installed on the build machine). The Dockerfile and the PostgreSQL migration do run in the hosted deployment.
 * The demo-data import dialog at first sign-in and the session-expired redirect were not exercised in the browser.
 
 **Partial or heuristic by nature:**
